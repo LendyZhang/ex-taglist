@@ -1466,7 +1466,9 @@ function! s:Tlist_Window_Init()
     " Set the taglist buffer filetype to taglist
     setlocal filetype=taglist
     setlocal cursorline
-    au! BufWinLeave <buffer> call <SID>on_close() " jwu ADD
+    augroup taglist
+        au! BufWinLeave <buffer> call <SID>on_close() " jwu ADD
+    augroup END
 
     " Define taglist window element highlighting
     syntax match TagListComment '^" .*'
