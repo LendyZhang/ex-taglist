@@ -2283,13 +2283,14 @@ function! s:Tlist_Process_File(filename, ftype)
 
     " Ctags command to produce output with regexp for locating the tags
     let ctags_cmd = g:Tlist_Ctags_Cmd . ctags_args
-    let ctags_cmd = ctags_cmd . ' "' . a:filename . '"'
 
     if &shellxquote == '"'
         " Double-quotes within double-quotes will not work in the
         " command-line.If the 'shellxquote' option is set to double-quotes,
         " then escape the double-quotes in the ctags command-line.
-        let ctags_cmd = escape(ctags_cmd, '"')
+        let ctags_cmd = ctags_cmd . ' "' . escape(a:filename, '"') . '"'
+    else
+        let ctags_cmd = ctags_cmd . ' "' . a:filename . '"'
     endif
 
     " In Windows 95, if not using cygwin, disable the 'shellslash'
